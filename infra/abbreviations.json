@@ -1,0 +1,9 @@
+{
+  "cognitiveServicesAccounts": "ai-",
+  "aiFoundryHub": "hub-",
+  "aiFoundryProject": "proj-",
+  "searchSearchServices": "srch-",
+  "containerRegistryRegistries": "cr",
+  "operationalInsightsWorkspaces": "log-",
+  "insightsComponents": "appi-"
+}

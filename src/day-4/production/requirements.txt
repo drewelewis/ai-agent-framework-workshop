@@ -1,0 +1,4 @@
+agent-framework
+azure-ai-agentserver-agentframework
+python-dotenv
+uvicorn

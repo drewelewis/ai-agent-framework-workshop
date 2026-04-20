@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+.venv/
+venv/
+
+# Environment
+.env
+*.env.local
+
+# IDE
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# Azure
+.azure/
+
+# Foundry
+.foundry/
+
+# Docker
+*.log
+
+# OS
+.DS_Store
+Thumbs.db

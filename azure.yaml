@@ -1,0 +1,17 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+name: contoso-travel-workshop
+metadata:
+  template: ai-agent-framework-workshop
+
+infra:
+  provider: bicep
+  path: ./infra
+
+services:
+  travel-agent:
+    project: ./src/day-4/production
+    host: containerapp
+    language: python
+    docker:
+      path: ./src/day-4/production/Dockerfile
+      context: ./src/day-4/production
