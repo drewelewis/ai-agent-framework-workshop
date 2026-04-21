@@ -10,13 +10,27 @@ Build the **Orchestrator** agent that routes user requests to the right speciali
 
 ## Step 1: Set Up the Project
 
-Navigate to `src/day-3/orchestrator/` and review the starter code:
+Navigate to `src/day-3/orchestrator/` and set up the project:
+
+```bash
+cd src/day-3/orchestrator
+pip install -r requirements.txt
+copy .env.sample .env           # Windows
+# cp .env.sample .env           # macOS/Linux
+```
+
+Edit `.env` with your Azure values (same ones you’ve been using).
+
+Review the starter files:
 
 | File | Purpose |
 |------|---------|
 | `app.py` | Main application — Orchestrator agent and server |
 | `agents.py` | Sub-agent definitions (imports from Day 1 & 2) |
+| `tools.py` | Tool implementations — copy your implementations from Day 2, or implement the TODOs here |
 | `requirements.txt` | Dependencies |
+
+> **Important:** The orchestrator’s Trip Planner agent needs the tool functions you built in Day 2. The `tools.py` file has TODO stubs — either implement them fresh or copy your working implementations from `src/day-2/trip-planner/tools.py`.
 
 ---
 

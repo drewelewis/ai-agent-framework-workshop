@@ -54,10 +54,11 @@ ai-agent-framework-workshop/
 ## How to Use This Workshop
 
 1. **Read [PREREQUISITES.md](PREREQUISITES.md)** and complete all setup before Day 1
-2. **Each day** has its own folder under `docs/` with a README overview and numbered labs
-3. **Starter code** in `src/` contains scaffolded files with `# TODO` markers for you to complete
-4. **Solutions** in `solutions/` provide complete reference implementations — try before peeking!
-5. **Each lab builds on the previous** — complete them in order
+2. **New to Python or cloud?** Read the [Beginner Primer](docs/BEGINNER-PRIMER.md) — it covers virtual environments, `.env` files, HTTP servers, Docker, and other concepts used in the labs
+3. **Each day** has its own folder under `docs/` with a README overview and numbered labs
+4. **Starter code** in `src/` contains scaffolded files with `# TODO` markers for you to complete
+5. **Solutions** in `solutions/` provide complete reference implementations — try before peeking!
+6. **Each lab builds on the previous** — complete them in order
 
 ## Quick Start
 

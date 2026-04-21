@@ -24,7 +24,17 @@ Build a **Local Guide** agent that answers detailed questions about destinations
 ```
 
 ### Embeddings
-An embedding is a list of numbers (a vector) that represents the *meaning* of text. Similar meanings → similar vectors. This lets us find relevant documents by meaning, not just keyword matching.
+An embedding converts text into a list of numbers (a vector) that captures its **meaning**. Texts with similar meanings produce similar vectors — like GPS coordinates for ideas.
+
+| Text | Meaning Cluster |
+|------|----------------|
+| "best sushi in Tokyo" | food + Tokyo |
+| "top Japanese restaurants" | food + Japan ← similar! |
+| "cheap flights to Barcelona" | travel + Barcelona ← different |
+
+This lets RAG search find relevant content by meaning, not just keyword matching. For example, searching for "where to eat ramen" can find a chunk titled "Best Noodle Shops in Shibuya" even though the words are different.
+
+> **Want more detail?** See the [Beginner Primer](../BEGINNER-PRIMER.md#embeddings).
 
 ### Chunking
 Long documents are split into smaller pieces (chunks) so the search can find specific relevant passages rather than entire documents.

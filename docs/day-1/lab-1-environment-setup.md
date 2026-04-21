@@ -74,14 +74,19 @@ This creates:
 
 You need a GPT-4o model deployment in your Foundry project.
 
+You can check for available models via the CLI, but the **portal approach below is easier for beginners**.
+
+<details>
+<summary>CLI option (advanced)</summary>
+
 ```bash
-# List available models
 az cognitiveservices model list \
   --resource-group <your-rg> \
   --name <your-ai-services-name> \
-  --query "[?model.name=='gpt-4o'].{name:model.name, version:model.version}" \
   -o table
 ```
+Look for `gpt-4o` in the output.
+</details>
 
 If no deployment exists, create one through the Azure AI Foundry portal:
 
@@ -95,57 +100,61 @@ If no deployment exists, create one through the Azure AI Foundry portal:
 
 ## Step 5: Set Up Your Day 1 Project
 
+First, create a **virtual environment** — an isolated Python installation for this workshop so its packages don't interfere with anything else on your system.
+
+> **New to virtual environments?** See the [Beginner Primer](../BEGINNER-PRIMER.md#virtual-environments) for a fuller explanation.
+
 ```bash
-# Create and activate virtual environment
+# Create a virtual environment in a folder called ".venv"
 python -m venv .venv
+
+# Activate it — you should see (.venv) appear in your terminal prompt
 .venv\Scripts\activate          # Windows
 # source .venv/bin/activate     # macOS/Linux
+```
 
-# Navigate to Day 1 starter code
+Now navigate to the Day 1 starter code and install its dependencies:
+
+```bash
 cd src/day-1/destination-advisor
-
-# Install dependencies
 pip install -r requirements.txt
+```
 
-# Create your environment file
-copy .env.sample .env
+Finally, create your environment file. This is where your project-specific settings (like your Azure endpoint) are stored, separate from your code:
+
+```bash
+copy .env.sample .env           # Windows
+# cp .env.sample .env           # macOS/Linux
 ```
 
 ---
 
 ## Step 6: Configure Environment Variables
 
-Edit `src/day-1/destination-advisor/.env` with your values:
+Open `src/day-1/destination-advisor/.env` in your editor and fill in your values:
 
 ```env
 PROJECT_ENDPOINT=https://<your-project>.services.ai.azure.com/api
 MODEL_DEPLOYMENT_NAME=gpt-4o
 ```
 
-> **Where to find these:**
-> - `PROJECT_ENDPOINT` — From `azd up` output, or Azure AI Foundry portal → Project → Overview
-> - `MODEL_DEPLOYMENT_NAME` — The name you gave your GPT-4o deployment
+> **What is a `.env` file?** It's a simple text file that stores configuration values as `KEY=value` pairs. Your code reads these at startup using the `python-dotenv` package. This keeps secrets out of your source code. See the [Beginner Primer](../BEGINNER-PRIMER.md#env-files-and-python-dotenv) for more detail.
+
+> **Where to find these values:**
+> - `PROJECT_ENDPOINT` — From the `azd up` output you saved in Step 3, or go to the Azure AI Foundry portal → Your Project → Overview
+> - `MODEL_DEPLOYMENT_NAME` — The name you chose when deploying GPT-4o (usually just `gpt-4o`)
 
 ---
 
 ## Step 7: Verify Setup
 
-Run the verification script:
+Run the verification script to confirm everything is configured:
 
 ```bash
-python -c "
-from dotenv import load_dotenv
-import os
-load_dotenv()
-endpoint = os.getenv('PROJECT_ENDPOINT')
-model = os.getenv('MODEL_DEPLOYMENT_NAME')
-print(f'Endpoint: {endpoint}')
-print(f'Model: {model}')
-assert endpoint, 'PROJECT_ENDPOINT not set!'
-assert model, 'MODEL_DEPLOYMENT_NAME not set!'
-print('Environment configured successfully!')
-"
+python ../../verify_setup.py
 ```
+
+You should see your endpoint and model name printed, followed by "Everything looks good!" If you see errors, double-check your `.env` file.
 
 ---
 

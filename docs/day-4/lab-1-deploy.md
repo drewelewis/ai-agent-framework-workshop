@@ -10,6 +10,8 @@ Containerize your Contoso Travel multi-agent system and deploy it as a **hosted 
 
 ## Concepts: The Deployment Pipeline
 
+Until now, your agent has been running on your laptop. To make it available to real users, you need to **deploy** it to the cloud. Here’s the pipeline:
+
 ```
 ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐
 │  Agent   │    │  Docker  │    │   ACR    │    │ Foundry  │
@@ -22,9 +24,13 @@ Containerize your Contoso Travel multi-agent system and deploy it as a **hosted 
 4. Create hosted agent in Foundry → starts container
 ```
 
+> **New to Docker?** A container is a lightweight, portable package that bundles your code and all its dependencies together so it runs the same way on any machine. See the [Beginner Primer](../BEGINNER-PRIMER.md#docker-concepts-day-4) for a full explanation.
+
 ### The Hosting Adapter
 
-The `azure-ai-agentserver-agentframework` package wraps your agent to serve the OpenAI Responses API. Foundry talks to your agent via this standard API.
+The `azure-ai-agentserver-agentframework` package provides the **hosting adapter** — it wraps your agent so it speaks the standard OpenAI Responses API that Foundry expects. Think of it as a translator: Foundry sends requests in a specific format, and the adapter converts them into calls to your agent.
+
+Without the adapter, your agent only runs locally. With it, Foundry can host and manage your agent in the cloud.
 
 ---
 
@@ -70,20 +76,24 @@ app = server.app
 
 ### Review the Dockerfile
 
+The Dockerfile is the recipe Docker uses to build your container. Each line is a step:
+
 ```dockerfile
-FROM python:3.11-slim
+FROM python:3.11-slim          # Start with a base image that has Python installed
 
-WORKDIR /app
+WORKDIR /app                    # Set /app as the working directory inside the container
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements.txt .         # Copy the dependency list into the container
+RUN pip install --no-cache-dir -r requirements.txt  # Install Python packages
 
-COPY . .
+COPY . .                        # Copy all your code into the container
 
-EXPOSE 8000
+EXPOSE 8000                     # Document that the app uses port 8000
 
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]  # Start the server
 ```
+
+> **Tip:** You don’t need to modify the Dockerfile — just understand that it packages your agent into a portable container.
 
 ### Build and Test Locally
 

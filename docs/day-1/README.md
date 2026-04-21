@@ -48,6 +48,8 @@ Azure's platform for hosting, managing, and monitoring AI agents in production. 
 
 Your Day 1 starter code is in [`src/day-1/destination-advisor/`](../../src/day-1/destination-advisor/).
 
+> **First time with Python or cloud development?** Read the [Beginner Primer](../BEGINNER-PRIMER.md) before starting — it explains virtual environments, `.env` files, HTTP servers, and other concepts you’ll encounter today.
+
 ## What's Next?
 
 In [Day 2](../day-2/README.md), you'll add **tool calling** to your agent — enabling it to search flights, check weather, and build real itineraries.

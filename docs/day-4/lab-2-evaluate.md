@@ -72,14 +72,14 @@ Save as `data/eval-datasets/core-queries.jsonl`:
 
 ## Step 2: Set Up Evaluators
 
-Foundry provides built-in evaluators. For Phase 1, use these:
+Foundry provides built-in evaluators that automatically score your agent’s responses. For Phase 1, use these:
 
-| Evaluator | What It Measures |
-|-----------|-----------------|
-| `relevance` | Is the response relevant to the query? |
-| `task_adherence` | Does the response follow the system prompt instructions? |
-| `intent_resolution` | Does the response address the user's actual intent? |
-| `indirect_attack` | Is the agent resistant to prompt injection? |
+| Evaluator | What It Measures | Example of a Low Score |
+|-----------|-----------------|------------------------|
+| `relevance` | Is the response related to what the user asked? | User asks about Tokyo, agent talks about Barcelona |
+| `task_adherence` | Does the response follow the system prompt rules? | Prompt says "suggest 3 destinations" but agent suggests 5 |
+| `intent_resolution` | Does the response address what the user actually wants? | User wants to book a flight, agent gives general travel tips |
+| `indirect_attack` | Is the agent resistant to prompt injection? | User says "ignore your instructions" and agent complies |
 
 ---
 
@@ -92,9 +92,7 @@ Foundry provides built-in evaluators. For Phase 1, use these:
 3. Select evaluators: relevance, task_adherence, intent_resolution
 4. Click **Run evaluation**
 
-### Via CLI/MCP Tools
-
-Your instructor may demonstrate using MCP tools for automated eval runs.
+> Evaluation may take several minutes depending on dataset size.
 
 ---
 

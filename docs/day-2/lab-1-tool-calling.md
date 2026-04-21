@@ -6,6 +6,8 @@
 
 Understand how LLMs call tools and build your first set of custom tools for the Trip Planner agent.
 
+> **New to tool calling?** See the [Beginner Primer](../BEGINNER-PRIMER.md#tool-calling) for a high-level overview.
+
 ---
 
 ## Concepts: The Tool-Call Loop
@@ -122,7 +124,7 @@ Build a weather forecast tool that accepts a city and date range.
 
 ## Step 3: Register Tools with the Agent
 
-In `app.py`, register your tools with the agent using the `@agent.tool` decorator or by passing them to the agent configuration.
+In `app.py`, register your tools with the agent by passing them in the `tools` list:
 
 ```python
 from tools import search_flights, search_hotels, get_weather
@@ -137,6 +139,13 @@ class TripPlanner(BaseAgent):
             tools=[search_flights, search_hotels, get_weather],
         )
 ```
+
+> **How does the LLM know about the JSON schema?** You might notice we’re passing plain Python functions, not the JSON schema shown in Step 1. The Agent Framework **automatically generates** the tool schema from your function’s:
+> - **Name** → becomes the tool name
+> - **Docstring** → becomes the tool description
+> - **Parameter names and type hints** → become the parameter schema
+>
+> This is why good docstrings and type hints on your tool functions are critical — they’re what the LLM reads to decide how to call your tools.
 
 ---
 
@@ -160,10 +169,11 @@ Test and handle these scenarios:
 2. **Invalid input:** "Find flights on yesterday" (past dates)
 3. **Tool errors:** What happens if a tool throws an exception?
 
-Add input validation to your tools:
+Add input validation to your tools. You’ll need to import `datetime` (and `timedelta` and `random` for generating simulated data):
 
 ```python
-from datetime import datetime
+from datetime import datetime, timedelta
+import random
 
 def search_flights(origin: str, destination: str, date: str) -> dict:
     # Validate date format

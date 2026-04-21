@@ -93,7 +93,9 @@ If asked about bookings, explain that the Trip Planner agent handles that.
 
 ### TODO 2: Create the Agent Class
 
-Implement the `DestinationAdvisor` class that extends `BaseAgent`:
+Implement the `DestinationAdvisor` class that extends `BaseAgent`. This means your agent **inherits** all the framework’s built-in behavior (handling messages, connecting to the LLM, etc.) and you just provide the configuration:
+
+> **New to classes?** See the [Beginner Primer](../BEGINNER-PRIMER.md#classes-and-inheritance) for a quick explanation.
 
 ```python
 class DestinationAdvisor(BaseAgent):
@@ -108,12 +110,14 @@ class DestinationAdvisor(BaseAgent):
 
 ### TODO 3: Set Up the HTTP Server
 
-Configure the agent to run as an HTTP server:
+Configure the agent to run as an HTTP server — this lets you send messages to your agent over the network:
 
 ```python
 app = AgentApp()
 app.add_agent(DestinationAdvisor())
 ```
+
+> **What’s an HTTP server?** It’s a program that listens for incoming requests (like messages from users) and sends back responses. Your agent will listen on `http://localhost:8000`. See the [Beginner Primer](../BEGINNER-PRIMER.md#http-server) for more detail.
 
 ---
 
@@ -130,11 +134,21 @@ INFO:     Started server process
 INFO:     Uvicorn running on http://0.0.0.0:8000
 ```
 
+**Uvicorn** is the web server that runs your agent. When you see this output, your agent is running and ready to receive messages at `http://localhost:8000`.
+
+> To stop the server, press `Ctrl+C` in the terminal.
+
 ---
 
 ## Step 4: Test Your Agent
 
-Open a **new terminal** and send a test request:
+Open a **new terminal** (keep the agent running in the first one) and send a test request.
+
+Choose whichever method you’re most comfortable with:
+
+### Option A: curl (Windows cmd)
+
+The `^` character lets you split a long command across multiple lines in cmd:
 
 ```bash
 curl -X POST http://localhost:8000/responses ^
@@ -142,14 +156,33 @@ curl -X POST http://localhost:8000/responses ^
   -d "{\"input\": \"I want a relaxing beach vacation in December for about a week. I like snorkeling and local food.\", \"model\": \"gpt-4o\"}"
 ```
 
-> **PowerShell alternative:**
-> ```powershell
-> $body = @{
->     input = "I want a relaxing beach vacation in December for about a week. I like snorkeling and local food."
->     model = "gpt-4o"
-> } | ConvertTo-Json
-> Invoke-RestMethod -Uri "http://localhost:8000/responses" -Method Post -ContentType "application/json" -Body $body
-> ```
+### Option B: PowerShell
+
+```powershell
+$body = @{
+    input = "I want a relaxing beach vacation in December for about a week. I like snorkeling and local food."
+    model = "gpt-4o"
+} | ConvertTo-Json
+Invoke-RestMethod -Uri "http://localhost:8000/responses" -Method Post -ContentType "application/json" -Body $body
+```
+
+### Option C: VS Code REST Client (Recommended for beginners)
+
+Install the **REST Client** extension in VS Code, then create a file called `test.http` with:
+
+```http
+POST http://localhost:8000/responses
+Content-Type: application/json
+
+{
+  "input": "I want a relaxing beach vacation in December for about a week. I like snorkeling and local food.",
+  "model": "gpt-4o"
+}
+```
+
+Click **Send Request** above the `POST` line to test your agent.
+
+> **Tip:** See the [Beginner Primer](../BEGINNER-PRIMER.md#testing-with-curl) for more on API testing.
 
 ---
 
