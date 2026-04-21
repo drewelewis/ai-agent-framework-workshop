@@ -13,7 +13,8 @@ from tools import search_flights, search_hotels, get_weather, calculate_budget
 # =============================================================================
 # Destination Advisor — Day 1
 # =============================================================================
-# TODO: Paste your final, polished system prompt from Day 1/3
+# Default prompt provided below. Replace with your polished prompt from Day 1/3
+# if you'd like to use your own version.
 ADVISOR_PROMPT = """
 You are the Destination Advisor for Contoso Travel, an enthusiastic and knowledgeable
 travel expert. Your role is to help travelers discover their perfect destination.
@@ -52,7 +53,8 @@ class DestinationAdvisor(BaseAgent):
 # =============================================================================
 # Trip Planner — Day 2
 # =============================================================================
-# TODO: Paste your final system prompt from Day 2/3
+# Default prompt provided below. Replace with your polished prompt from Day 2/3
+# if you'd like to use your own version.
 PLANNER_PROMPT = """
 You are the Trip Planner for Contoso Travel. You create detailed, actionable trip
 itineraries by searching for real flights, hotels, and local information.
@@ -101,7 +103,7 @@ class TripPlanner(BaseAgent):
 # =============================================================================
 # Local Guide — Day 3
 # =============================================================================
-# TODO: Add knowledge index tool if RAG is configured
+# Default prompt provided below. Replace with your polished prompt from Day 3.
 GUIDE_PROMPT = """
 You are the Local Guide for Contoso Travel — a knowledgeable friend who provides
 insider tips, local recommendations, and cultural context.

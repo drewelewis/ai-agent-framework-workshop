@@ -1,3 +1,7 @@
-# See src/day-4/production/ for the complete Day 4 solution.
-# That directory contains the fully consolidated, deployment-ready
-# multi-agent system with hosting adapter, Dockerfile, and all agents.
+# Day 4 Solutions — Production Deployment
+#
+# solutions/day-4/production/app.py          — Hosting adapter with AgentServer
+# solutions/day-4/production/agents.py       — All agents consolidated (Advisor, Planner, Guide, Orchestrator)
+# solutions/day-4/production/tools.py        — All tool implementations
+# solutions/day-4/production/requirements.txt — Production dependencies
+# solutions/day-4/production/Dockerfile       — Container definition for deployment

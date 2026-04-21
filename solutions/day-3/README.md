@@ -1,14 +1,9 @@
-# Solutions for Day 3 and Day 4 are provided in the
-# src/day-4/production/ directory, which contains the fully
-# consolidated multi-agent system with all agents, tools,
-# and deployment configuration.
+# Day 3 Solutions
 #
-# The production code in src/day-4/production/ serves as the
-# reference solution for both Day 3 (orchestrator + agents)
-# and Day 4 (deployment + hosting adapter).
+# Lab 1 — RAG Knowledge (Local Guide):
+#   solutions/day-3/local-guide/app.py — Local Guide agent with KnowledgeIndexTool
 #
-# See:
-#   src/day-4/production/agents.py  — All agent definitions with polished prompts
-#   src/day-4/production/tools.py   — All tool implementations
-#   src/day-4/production/app.py     — Hosting adapter setup
-#   src/day-4/production/Dockerfile — Container definition
+# Labs 2-3 — Multi-Agent Orchestrator:
+#   solutions/day-3/orchestrator/app.py    — Orchestrator with multi-agent routing
+#   solutions/day-3/orchestrator/agents.py — All sub-agent definitions
+#   solutions/day-3/orchestrator/tools.py  — Trip Planner tool implementations

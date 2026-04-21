@@ -1,5 +1,5 @@
-# Contoso Travel — Production Tools
-# Day 4: All tool implementations consolidated
+# Contoso Travel — Trip Planner Tools (SOLUTION)
+# Day 3: Tool implementations (same as Day 2)
 
 from datetime import datetime, timedelta
 import random
@@ -74,7 +74,11 @@ def search_hotels(
         "luxury": (250, 600),
     }
 
-    price_range = price_ranges.get(budget.lower(), price_ranges["mid-range"])
+    budget_key = budget.lower()
+    if budget_key not in price_ranges:
+        return {"error": f"Invalid budget level '{budget}'. Use: budget, mid-range, or luxury."}
+
+    price_range = price_ranges[budget_key]
 
     hotels = [
         {
@@ -123,6 +127,9 @@ def get_weather(city: str, start_date: str, end_date: str) -> dict:
     except ValueError:
         return {"error": "Invalid date format. Use YYYY-MM-DD."}
 
+    if end < start:
+        return {"error": "End date must be after start date."}
+
     conditions = ["Sunny", "Partly Cloudy", "Cloudy", "Light Rain", "Clear"]
     forecast = []
     current = start
@@ -154,28 +161,27 @@ def calculate_budget(
 
     Args:
         flight_cost: Round-trip flight cost per person in USD
-        hotel_cost_per_night: Hotel cost per night in USD
-        num_nights: Number of nights
+        hotel_cost_per_night: Hotel cost per night in USD (total, not per person)
+        num_nights: Number of nights staying
         num_travelers: Number of travelers
         daily_food_budget: Daily food budget per person in USD (default: 50)
         daily_activities_budget: Daily activities budget per person in USD (default: 40)
     """
-    num_travelers = max(num_travelers, 1)
-    flights_total = round(flight_cost * num_travelers, 2)
-    hotel_total = round(hotel_cost_per_night * num_nights, 2)
-    food_total = round(daily_food_budget * num_nights * num_travelers, 2)
-    activities_total = round(daily_activities_budget * num_nights * num_travelers, 2)
-    grand_total = round(flights_total + hotel_total + food_total + activities_total, 2)
+    flights_total = flight_cost * num_travelers
+    hotel_total = hotel_cost_per_night * num_nights
+    food_total = daily_food_budget * num_nights * num_travelers
+    activities_total = daily_activities_budget * num_nights * num_travelers
+    grand_total = flights_total + hotel_total + food_total + activities_total
 
     return {
         "breakdown": {
-            "flights_total": flights_total,
-            "hotel_total": hotel_total,
-            "food_total": food_total,
-            "activities_total": activities_total,
+            "flights_total": round(flights_total, 2),
+            "hotel_total": round(hotel_total, 2),
+            "food_total": round(food_total, 2),
+            "activities_total": round(activities_total, 2),
         },
-        "grand_total": grand_total,
-        "per_person_total": round(grand_total / num_travelers, 2),
+        "grand_total": round(grand_total, 2),
+        "per_person_total": round(grand_total / max(num_travelers, 1), 2),
         "num_travelers": num_travelers,
         "num_nights": num_nights,
     }
